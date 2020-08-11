@@ -25,6 +25,30 @@ app.get('/timesheets/:id([0-9]{1,})', (req, res) => {
   }
 });
 
+app.post("/", (req, res)=> {
+  if(!req.json) {
+    res.status(400);
+    res.json({ message: `No parameters were passed`})
+  }
+  else {
+    if(timesheetData < 0) {
+      const timesheet = {"id": 1, "Project name": "BoU", "Hours":2, "Description": "Added new names"};
+      [...timesheet]
+      res.json({message: "New timesheet added."})
+    }
+    else {
+      const timesheet = {
+        "id": timesheetData[-1]["id"] + 1,
+        "Project name": req.json["Project name"],
+        "Hours":req.json["Hours"],
+        "Description": req.json["Description"]
+      };
+      [...timesheet]
+    }
+    
+  }
+})
+
 
 
 
