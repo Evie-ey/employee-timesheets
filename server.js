@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 
+
 MongoClient.connect(process.env.DATABASE_URL, { useUnifiedTopology: true })
   .then((client) => {
     const db = client.db('employee-timesheets')
@@ -11,15 +12,15 @@ MongoClient.connect(process.env.DATABASE_URL, { useUnifiedTopology: true })
   })
   .catch((err) => console.error(err))
 
-const hostname = '127.0.0.1';
+
 const port = 8080;
 app.use(bodyParser.urlencoded({ extended: false }));
 
+const timesheetsRouter = require('./routes/timesheets')
+app.use('/timesheets', timesheetsRouter)
+app.use('/', timesheetsRouter)
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
 
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}`)
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`)
 })
