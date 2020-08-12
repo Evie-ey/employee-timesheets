@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 
 mongoose
-  .connect(process.env.DATABASE_URL, { useNewUrlParser: true,  useUnifiedTopology: true })
+  .connect(process.env.DATABASE_URL, { useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false })
   .then(() => console.log('Database connected'))
   .catch(err => console.log(err));
 

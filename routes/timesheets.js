@@ -16,6 +16,7 @@ router.get('/timesheets/:id', (req, res) => {
   .catch(err => res.json({ message: `${err} Timesheet doesn't exist` }) )
 });
 
+// Create a new timesheet
 router.post("/", (req, res) => {
   if (!req.body) {
     res.status(400);
@@ -28,10 +29,17 @@ router.post("/", (req, res) => {
       description: req.body.description,
       employee: req.body.employee
     });
-    newTimesheet.save().then(post => res.status(201).json(post));
-
-
+    newTimesheet.save().then(timesheet => res.status(201).json(timesheet));
   }
+})
+
+// Update timesheets
+router.patch('/timesheets/:id', (req, res) => {
+  Timesheet.findByIdAndUpdate(req.params.id, req.body)
+  .then(timesheet => timesheet.save()
+    .then(data => res.status(201).json(data))
+  )
+  
 })
 
 module.exports = router;
