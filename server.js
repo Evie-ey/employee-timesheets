@@ -2,19 +2,19 @@ require('dotenv').config()
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
-const MongoClient = require('mongodb').MongoClient
+const mongoose = require('mongoose');
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 
-MongoClient.connect(process.env.DATABASE_URL, { useUnifiedTopology: true })
-  .then((client) => {
-    const db = client.db('employee-timesheets')
-    console.log('connected to database')
-  })
-  .catch((err) => console.error(err))
+mongoose
+  .connect(process.env.DATABASE_URL, { useNewUrlParser: true,  useUnifiedTopology: true })
+  .then(() => console.log('Database connected'))
+  .catch(err => console.log(err));
 
 
 const port = 8080;
-app.use(bodyParser.urlencoded({ extended: false }));
+
 
 const timesheetsRouter = require('./routes/timesheets')
 app.use('/timesheets', timesheetsRouter)
