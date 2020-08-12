@@ -39,7 +39,15 @@ router.patch('/timesheets/:id', (req, res) => {
   .then(timesheet => timesheet.save()
     .then(data => res.status(201).json(data))
   )
+  .catch(err => res.status(404).json({ message: `Timesheet with id: ${req.params.id} does not exist` }))
   
 })
 
+// delete timesheets
+router.delete('/timesheets/:id', (req, res) => {
+  Timesheet.findByIdAndDelete(req.params.id, req.body)
+  .then(timesheet => res.json({ message: `Timesheet with id: ${req.params.id} has been deleted` }))
+  .catch(err => res.status(404).json({ message: `Timesheet with id: ${req.params.id} does not exist` }))
+  
+})
 module.exports = router;
