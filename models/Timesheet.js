@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const TimeSheetSchema = new Schema({
   employee: {
-    type: String
+    type: Schema.Types.ObjectId,
+    ref: 'Employee'
   },
   dateCreated: {
     type: Date,
