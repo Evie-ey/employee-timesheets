@@ -6,7 +6,7 @@ const Timesheet = require('../models/Timesheet')
 router.get('/timesheets', (req, res) => {
   Timesheet.find()
   .then(timesheets => res.json(timesheets))
-  .catch(err => res.status(404).json({message: 'No timesheets found'}))
+  .catch(err => res.status(404).json({message: `${err} No timesheets found`}))
 });
 
 // Get timesheets by id
