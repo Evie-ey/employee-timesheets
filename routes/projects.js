@@ -16,6 +16,21 @@ router.get('/:id', (req, res) => {
   .catch(err => res.json({ message: `${err} Project doesn't exist` }))
 });
 
-
+// Create a new project
+router.post('/new-project', (req, res) => {
+  if (!req.body) {
+    res.status(400);
+    res.json({ message: `No parameters were passed` })
+  }
+  else {
+    const newProject = new Project({
+      companyName: req.body.companyName,
+      projectName: req.body.projectName,
+      code: req.body.code,
+      projectItems: req.body.projectItems
+    });
+    newProject.save().then(project => res.status(201).json(project));
+  }
+})
 
 module.exports = router;

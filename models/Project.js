@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 const ProjectSchema = new schema({
-  company: {
+  companyName: {
     type: String,
     required: true
   },
-  name: {
+  projectName: {
     type: String,
     required: true
   },
@@ -14,7 +14,7 @@ const ProjectSchema = new schema({
     type: String,
     required: true
   },
-  projectItems: [{type: Schema.Types.ObjectId, ref: 'ProjectItem'}],
+  projectItems: [{name:String, code: String}],
 
   date: {
     type: Date,
