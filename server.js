@@ -18,8 +18,11 @@ const port = 8080;
 
 const timesheetsRouter = require('./routes/timesheets')
 const employeesRouter = require('./routes/employees')
-app.use('/employee-timesheets/api/v1/', timesheetsRouter)
+const projectsRouter = require('./routes/projects')
+
+app.use('/employee-timesheets/api/v1/timesheets/', timesheetsRouter)
 app.use('/employee-timesheets/api/v1/', employeesRouter);
+app.use('/employee-timesheets/api/v1/projects', projectsRouter);
 
 
 app.listen(port, () => {
