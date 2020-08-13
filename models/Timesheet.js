@@ -10,9 +10,9 @@ const TimeSheetSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  projectName: {
-    type: String,
-    required: true
+  Project: {
+    type: Schema.Types.ObjectId,
+    ref: 'Project'
   },
   hours: {
     type: String,

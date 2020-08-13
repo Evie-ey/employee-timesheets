@@ -17,7 +17,7 @@ router.get('/:id', (req, res) => {
 });
 
 // Create a new timesheet
-router.post('/', (req, res) => {
+router.post('/new-timesheet', (req, res) => {
   if (!req.body) {
     res.status(400);
     res.json({ message: `No parameters were passed` })
