@@ -27,20 +27,22 @@ router.post('/register', (req, res) => {
       .then(employee => res.status(201).json(employee));
     }
   })
+  // res.redirect('/')
 })
 
 // Login user
 router.post('/login', (req, res) => {
   Employee.findOne({email: req.body.email})
   .then(employee => {
-    if(!employee) {
-      res.status(400).json({message: 'Please first register to log in'})
+    if(hashPassword(req.body.password) === employee.password) {
+      res.status(200).json({message: 'You have successfully logged in'})
+      // res.redirect('/')
+    } else {
+      res.status(400).json({message: 'Invalid log in credentials'})
     }
 
-    if(req.body.password === employee.password) {
-      
-    }
   })
+  .catch((err) => res.status(400).json({message: 'Please first register to log in'}))
 })
 
 
