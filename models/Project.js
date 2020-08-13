@@ -14,7 +14,7 @@ const ProjectSchema = new schema({
     type: String,
     required: true
   },
-  projectItem: [{type: Schema.Types.ObjectId, ref: 'ProjectItem'}],
+  projectItems: [{type: Schema.Types.ObjectId, ref: 'ProjectItem'}],
 
   date: {
     type: Date,

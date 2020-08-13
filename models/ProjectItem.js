@@ -10,6 +10,10 @@ const ProjectItemSchema = new schema({
     type: String,
     required: true
   },
+  project: {
+    type: Schema.Types.ObjectId,
+    ref: 'Project'
+  },
   date: {
     type: Date,
     default: Date.now
