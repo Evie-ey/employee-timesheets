@@ -3,16 +3,14 @@ const Schema = mongoose.Schema;
 
 const TimeSheetSchema = new Schema({
   employee: {
-    type: Schema.Types.ObjectId,
-    ref: 'Employee'
+    type: String
   },
   dateCreated: {
     type: Date,
     default: Date.now
   },
-  Project: {
-    type: Schema.Types.ObjectId,
-    ref: 'Project'
+  projectID: {
+    type: String
   },
   hours: {
     type: String,

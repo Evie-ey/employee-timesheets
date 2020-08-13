@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   Timesheet.findById(req.params.id)
   .then(timesheet => res.json(timesheet))
-  .catch(err => res.json({ message: `${err} Timesheet doesn't exist` }) )
+  .catch(err => res.json({ message: `${err} Timesheet doesn't exist` }))
 });
 
 // Create a new timesheet
@@ -24,10 +24,10 @@ router.post('/new-timesheet', (req, res) => {
   }
   else {
     const newTimesheet = new Timesheet({
-      projectName: req.body.projectName,
+      employee: req.body.employee,
       hours: req.body.hours,
       description: req.body.description,
-      employee: req.body.employee
+      projectID: req.body.projectID
     });
     newTimesheet.save().then(timesheet => res.status(201).json(timesheet));
   }
