@@ -1,8 +1,10 @@
 const Timesheet = require('../models/Timesheet')
+const {authenticateToken} = require('../controllers/employeeController')
 
 const getAll = (req, res) => {
   Timesheet.find().limit(2)
-  .then(timesheets => res.json(timesheets))
+  // get timesheets of only the logged in user
+  .then(timesheets => res.json(timesheets.filter(timesheet => timesheet.employee.id === req.user.id)))
   .catch(err => res.status(404).json({message: `${err} No timesheets found`}))
 }
 
@@ -17,14 +19,17 @@ const createTimesheet = (req, res) => {
     res.status(400);
     res.json({ message: `No parameters were passed` })
   }
-  else {
+  else { 
     const newTimesheet = new Timesheet({
-      employee: req.body.employee,
+      employee: req.user.id,
       hours: req.body.hours,
       description: req.body.description,
       projectID: req.body.projectID
     });
-    newTimesheet.save().then(timesheet => res.status(201).json(timesheet));
+    newTimesheet.employee = req.user.id
+    newTimesheet.save()
+    .then(timesheet => res.status(201).json(timesheet))
+    .catch((err) => res.json(err));
   }
 }
 
