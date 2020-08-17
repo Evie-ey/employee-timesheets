@@ -31,7 +31,8 @@ const loginEmployee = (req, res) => {
   Employee.findOne({ email: req.body.email })
     .then(employee => {
       if (bcrypt.compare(req.body.password, employee.password)) {
-        const user = {...employee }
+        // const user = {...employee }
+        const user = {id: employee.id, username: employee.password, password: employee.password }
         const access_token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
         res.json({ access_token: access_token, employee:employee })
         // res.status(200).json({ message: 'You have successfully logged in' })
@@ -51,6 +52,7 @@ const authenticateToken = (req, res, next) => {
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) return res.status(403);
     req.user = user
+    // res.json(req.user)
     next()
 
   })

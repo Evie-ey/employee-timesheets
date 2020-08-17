@@ -8,14 +8,16 @@ const {authenticateToken} = require('../controllers/employeeController')
 router.get('/', authenticateToken, getAll);
 
 // Get timesheets by id
-router.get('/:id', getOne);
+router.get('/:id', authenticateToken, getOne);
 
 // Create a new timesheet
 router.post('/new-timesheet', authenticateToken, createTimesheet)
 
 // Update timesheets
-router.patch('/:id', updateTimesheet)
+router.patch('/:id', authenticateToken, updateTimesheet)
 
 // delete timesheets
-router.delete('/:id', deleteTimesheet)
+router.delete('/:id', authenticateToken, deleteTimesheet)
+
+
 module.exports = router;
